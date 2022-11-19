@@ -2,7 +2,7 @@
   "name": "aleannlab-testwork",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://SyrdiiDima/aleannlab-testwork/",
+  "homepage": "https://SyrdiiDima/alean/",
   "dependencies": {
     "@react-google-maps/api": "^2.17.0",
     "@testing-library/jest-dom": "^5.16.3",
