@@ -1,6 +1,5 @@
 import { NavLink } from 'react-router-dom';
 import scss from './Pagination.module.scss';
-
 const Pagination = ({ jobsPerPage, totalJobs, paginate, currentPage }) => {
   const pageNumbers = [];
 

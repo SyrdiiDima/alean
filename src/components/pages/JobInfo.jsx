@@ -2,7 +2,13 @@ import { useLocation, Link } from 'react-router-dom';
 import { useState } from 'react';
 import scss from '../pages/JobInfo.module.scss';
 import { nanoid } from 'nanoid';
-
+import { AiOutlineStar } from 'react-icons/ai';
+import { MdOutlineKeyboardArrowLeft } from 'react-icons/md';
+import { IoMdSquare } from 'react-icons/io';
+import { ImLocation } from 'react-icons/im';
+import { BsBookmark, BsShareFill } from 'react-icons/bs';
+import Loader from 'components/LoaderSpinner/Loader';
+import { SliderPhoto } from 'components/SliderPhoto/Slider';
 import { Home } from 'components/Map/Map';
 export const JobInfo = () => {
   const location = useLocation();
@@ -11,73 +17,137 @@ export const JobInfo = () => {
 
   return (
     <>
+      {!currentJobs && <Loader />}
       {currentJobs && (
-        <div>
-          <div className={scss.header}>
-            <h1>Job Details</h1>
-            <p>Save to my list</p> //save logo
-            <p>Share</p> // share logo
-          </div>
-          <button>Apply now</button>
-          <div>
-            <h2>{currentJobs.title}</h2>
-          </div>
-          <div>
-            <p>Posted 2 days ago</p>
-            <p>Brutto, per year</p>
-            <p>{currentJobs.salary}</p>
-          </div>
-          <div>
-            <p>{currentJobs.description}</p>
-            <h3>Responsopilities</h3>
-            <p>{currentJobs.description}</p>
-            <h3>Compensation & Benefits:</h3>
-            <p>Our phisicians enjoy a wide range of benefits, including:</p>
-            <ul>
-              {currentJobs.benefits.map(benefit => (
-                <li key={nanoid()}>
-                  <p>{benefit}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h1>Attached images</h1>
-            <p>PHOTO</p>
-          </div>
-          <Link to={pathBack}>
-            <button>RETURN TO JOB BOARD</button>
-          </Link>
-          <div>
-            <h1>Additional info</h1>
-            <h3>Employment type</h3>
-            <ul>
-              {currentJobs.employment_type.map(type => (
-                <li key={nanoid()}>
-                  <button type="button">{type}</button>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h3>Benefits</h3>
-            <ul>
-              {currentJobs.benefits.map(benefit => (
-                <li key={nanoid()}>
-                  <button type="button">{benefit}</button>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h2>Contacts</h2>
-            <div className={scss.map}>
-              <Home location={currentJobs.location} />
-            </div>
-            <p>{currentJobs.title}</p>
-            <p>{currentJobs.address}</p>
-            <p>{currentJobs.email}</p>
-            <p>{currentJobs.phone}</p>
+        <div className={scss.container}>
+          <div className={scss.detailInfo}>
+            <header className={scss.header}>
+              <p className={scss.header__title}>Job Details</p>
+              <div className={scss.header__navigation}>
+                <div className={scss.header__saveContainer}>
+                  <AiOutlineStar className={scss.header__iconStar} />
+                  <BsBookmark className={scss.header__iconBookmark} />
+                  <p className={scss.header__titleSave}>Save to my list</p>{' '}
+                </div>
+                <div className={scss.header__shareContainer}>
+                  <BsShareFill className={scss.header__iconShare} />
+                  <p className={scss.header__titleShare}>Share</p>
+                </div>
+              </div>
+            </header>
+            <section className={scss.info}>
+              <button className={scss.info__btnApplyMobile} type="button">
+                APPLY NOW
+              </button>
+
+              <h1 className={scss.info__title}>{currentJobs.title}</h1>
+
+              <div className={scss.info__salaryContainer}>
+                <p className={scss.info__posted}>Posted 2 days ago</p>
+                <div className={scss.info__salaryWraper}>
+                  <p className={scss.info__price}>€ {currentJobs.salary}</p>
+
+                  <p className={scss.info__brutto}> Brutto, per year</p>
+                </div>
+              </div>
+              <div>
+                <p className={scss.info__description}>
+                  {currentJobs.description}
+                </p>
+                <h3 className={scss.info__responsopilites}>Responsopilities</h3>
+                <p className={scss.info__responsopilitesDescr}>
+                  {currentJobs.description}
+                </p>
+                <h3 className={scss.info__compAndBenefits}>
+                  Compensation & Benefits:
+                </h3>
+                <p className={scss.info__compAndBenefitsDescr}>
+                  Our phisicians enjoy a wide range of benefits, including:
+                </p>
+                <ul>
+                  {currentJobs.benefits.map(benefit => (
+                    <li key={nanoid()} className={scss.info__benefit}>
+                      <IoMdSquare className={scss.info__iconList} />
+                      <p className={scss.info__benefitListInfo}>{benefit}</p>
+                    </li>
+                  ))}
+                </ul>
+                <div className={scss.info__btnBottomApply}>
+                  <button className={scss.info__btnBottom}>APPLY NOW</button>
+                </div>
+              </div>
+            </section>
+
+            <section className={scss.images}>
+              <h2 className={scss.images__title}>Attached images</h2>
+              <div className={scss.slider}>
+                <SliderPhoto
+                  className={scss.images__sliderPhoto}
+                  jobs={currentJobs}
+                />
+              </div>
+              <Link to={pathBack}>
+                <button className={scss.images__btnBack} type="button">
+                  <MdOutlineKeyboardArrowLeft
+                    className={scss.images__btnBackIcon}
+                  />
+                  <p>RETURN TO JOB BOARD</p>
+                </button>
+              </Link>
+            </section>
+            <section className={scss.additionalInfo}>
+              <div>
+                <h2 className={scss.additionalInfo__title}>Additional info</h2>
+                <h3 className={scss.additionalInfo__employment}>
+                  Employment type
+                </h3>
+                <ul className={scss.emplBtns}>
+                  {currentJobs.employment_type.map(type => (
+                    <li key={nanoid()}>
+                      <div>
+                        <button className={scss.emplBtn} type="button">
+                          {type}
+                        </button>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h3 className={scss.additionalInfo__benefitTitle}>Benefits</h3>
+                <ul className={scss.benefitsBtns}>
+                  {currentJobs.benefits.map(benefit => (
+                    <li key={nanoid()}>
+                      <button className={scss.benefitsBtn} type="button">
+                        {benefit}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+            <section className={scss.contacts}>
+              <h2 className={scss.contacts__title}>Contacts</h2>
+              <div className={scss.contacts__container}>
+                <div className={scss.contacts__information}>
+                  <p className={scss.contacts__titleName}>
+                    {currentJobs.title}
+                  </p>
+                  <div className={scss.contacts__cont}>
+                    <ImLocation className={scss.contacts__iconLoc} />
+                    <p className={scss.contacts__address}>
+                      {currentJobs.address}
+                    </p>
+                  </div>
+                  <p className={scss.contacts__email}>{currentJobs.email}</p>
+                  <p className={scss.contacts__phone}>{currentJobs.phone}</p>
+                </div>
+                <div className={scss.map}>
+                  {/* <Home location={currentJobs.location} /> */}
+                  <Home />
+                </div>
+              </div>
+            </section>
           </div>
         </div>
       )}

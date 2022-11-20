@@ -1,7 +1,6 @@
 // import { fetchJobList } from './api/api';
 
 import { Routes, Route } from 'react-router-dom';
-
 import { JobList } from './pages/JobList';
 import { JobInfo } from './pages/JobInfo';
 export const App = () => {
