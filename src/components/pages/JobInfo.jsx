@@ -144,7 +144,7 @@ export const JobInfo = () => {
                 </div>
                 <div className={scss.map}>
                   {/* <Home location={currentJobs.location} /> */}
-                  <Home />
+                  <Home location={currentJobs.location} />
                 </div>
               </div>
             </section>
