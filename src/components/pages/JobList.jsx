@@ -57,7 +57,7 @@ export const JobList = () => {
                       </Link>
 
                       <p className={scss.list__department}>
-                        Departament name • {job.name}
+                        Department name • {job.name}
                       </p>
 
                       <div className={scss.list__address}>
